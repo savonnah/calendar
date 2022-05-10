@@ -1,16 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class PaintDemo {
+public class CalendarPage {
     JFrame frame;
     DrawingPanel dPanel;
 
     // This is the constructor which sets up the JFrame
     // and all other components and containers
-    public PaintDemo() {
+    public CalendarPage() {
         // Set up JFrame
-        frame = new JFrame("Paint Demo");
+        frame = new JFrame("Calendar");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create and add DrawingPanel to CENTER
@@ -24,7 +23,7 @@ public class PaintDemo {
 
     // Main method just creates a PaintDemo object
     public static void main(String[] args) {
-        PaintDemo x = new PaintDemo();
+        CalendarPage x = new CalendarPage();
     }
 
     class DrawingPanel extends JPanel {

@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        PaintDemo d = new PaintDemo();
+        CalendarPage d = new CalendarPage();
         // PaintProgram p = new PaintProgram();
     }
 }
