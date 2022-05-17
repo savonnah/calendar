@@ -1,55 +1,97 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class CalendarPage {
-    JFrame frame;
-    DrawingPanel dPanel;
+public class CalendarPage extends JPanel {
+    JPanel panel1;
+    JButton button1, createButton;
+    JLabel label, label1, label2;
+
+    JPanel popupPanel;
+    JTextField popupField1, popupField2;
+
+    public CalendarPage(){
+        super();
+    }
 
     // This is the constructor which sets up the JFrame
     // and all other components and containers
-    public CalendarPage() {
-        // Set up JFrame
-        frame = new JFrame("Calendar");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public CalendarPage(int day) {
+        super(); // equivalent to: JPanel panel1 = new JPanel();
+        JPanel thisPanel = this;
+        this.setLayout(new BorderLayout());
+        this.setPreferredSize(new Dimension(100, 100));
 
-        // Create and add DrawingPanel to CENTER
-        dPanel = new DrawingPanel();
-        frame.add(dPanel);
+        panel1 = new JPanel();
+        panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+        this.add(panel1, BorderLayout.CENTER);
 
-        // Set the size and set the visibility
-        frame.pack();
-        frame.setVisible(true);
+        label = new JLabel("" + day);
+        this.add(label, BorderLayout.NORTH);
+
+        createButton = new JButton("+");
+        // this.add(createButton);
+
+        // We can make a custom panel, which will show up
+        // on our pop up window!
+        popupPanel = new JPanel(new GridLayout(0, 2));
+
+        popupField1 = new JTextField(10);
+        popupField2 = new JTextField(10);
+
+        popupPanel.add(new JLabel("Event: "));
+        popupPanel.add(popupField1);
+        popupPanel.add(new JLabel("Time: "));
+        popupPanel.add(popupField2);
+
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showConfirmDialog(thisPanel, popupPanel, "Data Entry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//                ImageIcon x = new ImageIcon("photo.jpg");
+//                JOptionPane.showConfirmDialog(thisPanel, popupPanel, "Data Entry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, x);
+
+                label1 = new JLabel("" + popupField1.getText() + " @ " + popupField2.getText());
+                panel1.add(label1);
+                thisPanel.revalidate();
+            }
+        });
+
+           /* public void actionPerformed(ActionEvent e) {
+                //add pop up window stuff
+                String event = (String)JOptionPane.showInputDialog(
+                        thisPanel,
+                        "Title:",
+                        "Customized Dialog",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        null);
+
+                String time = (String)JOptionPane.showInputDialog(
+                        thisPanel,
+                        "Time:",
+                        "Customized Dialog",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        null);
+                label1 = new JLabel("" + event + "@ " + time);
+                thisPanel.add(label1, BorderLayout.WEST);
+
+            }
+            */
+        this.add(createButton, BorderLayout.SOUTH);
     }
+    public static void main(String[] args) {
+        // CalendarPage x = new CalendarPage();
+    }
+
+
+};
+
+
 
     // Main method just creates a PaintDemo object
-    public static void main(String[] args) {
-        CalendarPage x = new CalendarPage();
-    }
 
-    class DrawingPanel extends JPanel {
-        // Constructor sets up DrawingPanel
-        public DrawingPanel() {
-            setBackground(Color.WHITE);
-        }
 
-        // Sets the size of the DrawingPanel, so frame.pack() considers
-        // its preferred size when sizing the JFrame
-        @Override
-        public Dimension getPreferredSize() {
-            return new Dimension(500, 500);
-        }
-
-        // This is the method that draws everything
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            g.setColor(Color.BLACK);
-            g.drawRect(50, 50, 100, 50);
-            g.drawOval(200, 300, 50, 50);
-
-            g.setColor(Color.RED);
-            g.fillRect(50, 300, 50, 50);
-            g.fillOval(200, 50, 50, 100);
-        }
-    }
-}
