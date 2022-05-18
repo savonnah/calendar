@@ -1,47 +1,55 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.*;
 
 public class Main {
     JFrame frame;
-    CalendarPage [][] d;
-    JPanel panel1, panel2;
+    JPanel cardpanel;
+    JButton card1Button;
+    LocalDate now;
 
     public Main() {
-        int count = 1;
         frame = new JFrame("Calendar Program");
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        cardpanel = new JPanel();
+        cardpanel.setLayout(new CardLayout());
 
-        JLabel label1 = new JLabel("May");
-        label1.setHorizontalAlignment(JLabel.CENTER);
-        //creds: https://www.tutorialspoint.com/how-to-align-jlabel-text-vertically-top-in-java
-        frame.add(label1);
 
-        panel2 = new JPanel();
-        panel2.setLayout(new BorderLayout());
-        panel2.add(new JLabel("\n"), BorderLayout.NORTH);
-        panel2.add(new JLabel("           Sun                  Mon                   Tue                   Wed                   Thu                   Fri                   Sat"));
-        frame.add(panel2);
+        now = LocalDate.now();
+        now = now.minusDays(now.getDayOfMonth()-1);
 
-        panel1 = new JPanel();
-
-        panel1.setLayout(new GridLayout(5,7));
-        d = new CalendarPage[5][7];
-
-        panel1.add(new CalendarPage());
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 7; j++) {
-                //do math on starting count of the math thing
-                if (count<32) {
-                    d[i][j] = new CalendarPage(count);
-                    panel1.add(d[i][j]);
-                    count++;
-                }
-            }
+        for (int i = 1; i<13; i++){
+            JPanel p = new MonthPanel(i);
+            cardpanel.add(p, i + "");
         }
 
-        frame.add(panel1, BorderLayout.CENTER);
+        card1Button = new JButton("November");
+        card1Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                CardLayout cl = (CardLayout) cardpanel.getLayout();
+                cl.show(cardpanel, "11");
+            }
+        });
+        frame.add(cardpanel, BorderLayout.CENTER);
+        frame.add(card1Button, BorderLayout.SOUTH);
+
+
+
+
+
+
+        int count = now.getDayOfWeek().getValue() % 7;
+        System.out.println(count);
+
+//        LocalDate earlier = now.minusMonths(1); // 2022-4-17
+//        int count = earlier.minusDays(now.getDayOfMonth()-1).getDayOfWeek().getValue();
+
+
 
         frame.pack();
         frame.setVisible(true);
