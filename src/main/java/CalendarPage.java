@@ -8,7 +8,10 @@ public class CalendarPage extends JPanel {
     JLabel label, label1, label2;
 
     JPanel popupPanel;
+    JScrollPane scrollPane;
     JTextField popupField1, popupField2;
+
+    int index;
 
     public CalendarPage(){
         super();
@@ -24,7 +27,9 @@ public class CalendarPage extends JPanel {
 
         panel1 = new JPanel();
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
-        this.add(panel1, BorderLayout.CENTER);
+        scrollPane = new JScrollPane(panel1);
+
+        this.add(scrollPane, BorderLayout.CENTER);
 
         label = new JLabel("" + day);
         this.add(label, BorderLayout.NORTH);
@@ -51,8 +56,31 @@ public class CalendarPage extends JPanel {
 //                ImageIcon x = new ImageIcon("photo.jpg");
 //                JOptionPane.showConfirmDialog(thisPanel, popupPanel, "Data Entry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, x);
 
+
+                for (int i = 0; i < panel1.getComponentCount(); i++) {
+                    JLabel x = (JLabel) panel1.getComponent(i);
+                    String text = x.getText();
+                    int at = text.indexOf("@");
+                    String s1ofat = text.substring(at+2);
+
+                    int a = Integer.parseInt(s1ofat);
+                    int b = Integer.parseInt(popupField2.getText());
+
+                    if (a<b){
+                        index = i+1;
+                    }
+                    else if(a>b){
+                        index = i;
+                        break;
+                    }
+
+                }
+
+
                 label1 = new JLabel("" + popupField1.getText() + " @ " + popupField2.getText());
-                panel1.add(label1);
+//                panel1.add(label1);
+                panel1.add(label1, index);
+
                 thisPanel.revalidate();
             }
         });

@@ -7,12 +7,13 @@ import java.time.*;
 
 public class Main {
     JFrame frame;
-    JPanel cardpanel;
-    JButton card1Button;
+    JPanel cardpanel, buttonpanel;
+    JButton card1Button, card2Button;
     LocalDate now;
+    int counter;
 
     public Main() {
-        frame = new JFrame("Calendar Program");
+        frame = new JFrame("Calendar 2022");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         cardpanel = new JPanel();
@@ -26,17 +27,31 @@ public class Main {
             JPanel p = new MonthPanel(i);
             cardpanel.add(p, i + "");
         }
-
-        card1Button = new JButton("November");
+        buttonpanel = new JPanel();
+        buttonpanel.setLayout(new BorderLayout());
+        counter = 1;
+        card1Button = new JButton("<");
         card1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 CardLayout cl = (CardLayout) cardpanel.getLayout();
-                cl.show(cardpanel, "11");
+                cl.show(cardpanel, "" + (counter-1));
+                counter--;
+            }
+        });
+        card2Button = new JButton(">");
+        card2Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                CardLayout cl = (CardLayout) cardpanel.getLayout();
+                cl.show(cardpanel, "" + (counter+1));
+                counter++;
             }
         });
         frame.add(cardpanel, BorderLayout.CENTER);
-        frame.add(card1Button, BorderLayout.SOUTH);
+        frame.add(buttonpanel, BorderLayout.SOUTH);
+        buttonpanel.add(card1Button, BorderLayout.WEST);
+        buttonpanel.add(card2Button, BorderLayout.EAST);
 
 
 
