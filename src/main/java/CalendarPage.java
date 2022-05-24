@@ -24,10 +24,13 @@ public class CalendarPage extends JPanel {
         JPanel thisPanel = this;
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(100, 100));
+        this.setOpaque(false);
 
         panel1 = new JPanel();
+        panel1.setOpaque(false);
         panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
         scrollPane = new JScrollPane(panel1);
+        //scrollPane.setOpaque(false);
 
         this.add(scrollPane, BorderLayout.CENTER);
 
