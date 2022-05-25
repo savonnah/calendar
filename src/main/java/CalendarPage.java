@@ -15,6 +15,7 @@ public class CalendarPage extends JPanel {
 
     public CalendarPage(){
         super();
+        this.setOpaque(false);
     }
 
     // This is the constructor which sets up the JFrame

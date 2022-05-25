@@ -1,7 +1,6 @@
-# Week 9 Day 1: Paint Lab, Day 1
+# Final Week: Calendar
 
-In class today, we'll start the Paint Lab. 
-
+Calendar Project
 <br />
 
 Add code to the various Java files and then either run the main methods in those files or the main method in [Main.java](src/main/java/Main.java).
